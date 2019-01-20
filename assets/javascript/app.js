@@ -44,6 +44,12 @@ var choice2;
 
 //Game logic for determining winners. Takes values and assigns them to global "choice" variables
   function gamePlay() {
+    if (playerNumber ==2) {
+      $("#score").text(Player2Object.wins)
+    }
+    if (playerNumber ==1) {
+      $("#score").text(Player1Object.wins)
+    }
     database.ref('/users/1').on("value",function (snapshot) {
       choice1 = snapshot.val().choice;
       console.log(choice1)
@@ -136,7 +142,7 @@ var choice2;
       })
       database.ref('/users/2').on("value", function(snapshot) {
         Player2Object.wins= snapshot.val().wins
-        Player2Object.losses= snapshot.val().losses
+         Player2Object.losses= snapshot.val().losses
         
       })
     }
