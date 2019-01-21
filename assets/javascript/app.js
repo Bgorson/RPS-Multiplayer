@@ -43,7 +43,7 @@
 
 
 
-  
+
   //Game logic for determining winners. Takes values and assigns them to global "choice" variables
   function gamePlay() {
     choice1 = Player1Object.choice
@@ -142,19 +142,19 @@
       snapshot.val().winner = false;
       database.ref('users/1').update({
         winner: false
-     })
-     database.ref('users/2').update({
-      winner: false
-   })
+      })
+      database.ref('users/2').update({
+        winner: false
+      })
     }
     if (snapshot.val().winner == "draw") {
       $("#yourPick").text("Draw")
       database.ref('users/1').update({
         winner: false
-     })
-     database.ref('users/2').update({
-      winner: false
-   })
+      })
+      database.ref('users/2').update({
+        winner: false
+      })
     }
   })
   database.ref('/users/2').on("value", function (snapshot) {
@@ -165,23 +165,23 @@
       snapshot.val().winner = false;
       database.ref('users/1').update({
         winner: false
-     })
-     database.ref('users/2').update({
-      winner: false
-   })
+      })
+      database.ref('users/2').update({
+        winner: false
+      })
     }
     if (snapshot.val().winner == "draw") {
       $("#yourPick").text("Draw")
       database.ref('users/1').update({
         winner: false
-     })
-     database.ref('users/2').update({
-      winner: false
-   })
+      })
+      database.ref('users/2').update({
+        winner: false
+      })
     }
 
   })
-//updates scoreboard
+  //updates scoreboard
   database.ref().on("value", function () {
     if (playerNumber == 2) {
       $("#score").text(Player2Object.wins)
@@ -193,13 +193,13 @@
 
   //creates "join" button and block more than 2 users from joining
   $(".join").on("click", function () {
-  if (currentUsers <3){
-    $(".joined").css("display","block")
-  }
+    if (currentUsers < 3) {
+      $(".joined").css("display", "block")
+    }
   })
 
   var connectionsRef = database.ref("/connections");
-var currentUsers=0;
+  var currentUsers = 0;
   // '.info/connected' is a special location provided by Firebase that is updated every time
   // the client's connection state changes.
   // '.info/connected' is a boolean value, true if the client is connected and false if they are not.
@@ -215,7 +215,7 @@ var currentUsers=0;
 
       // Remove user from the connection list when they disconnect.
       con.onDisconnect().remove();
-      currentUsers== currentUsers-1
+      currentUsers == currentUsers - 1
     }
   });
 
@@ -223,7 +223,7 @@ var currentUsers=0;
   connectionsRef.on("value", function (snapshot) {
     console.log("Connection change")
     // The number of online users is the number of children in the connections list.
-    currentUsers=snapshot.numChildren()
+    currentUsers = snapshot.numChildren()
     if (snapshot.numChildren() == 1) {
       setPlayerInfo(1, '', false)
       setPlayerInfo(2, '', false)
@@ -255,7 +255,7 @@ var currentUsers=0;
         $("input").css("display", "none")
       }
     });
-  
+
   })
 
   database.ref('/users/1').on("value", function (snapshot) {
@@ -263,14 +263,14 @@ var currentUsers=0;
     Player1Object.name = snapshot.val().username
     Player1Object.wins = snapshot.val().wins
     Player1Object.losses = snapshot.val().losses
-    player1LoggedIn=snapshot.val().isLoggedIn
+    player1LoggedIn = snapshot.val().isLoggedIn
   })
   database.ref('/users/2').on("value", function (snapshot) {
     Player2Object.choice = snapshot.val().choice
     Player2Object.name = snapshot.val().username
     Player2Object.wins = snapshot.val().wins
     Player2Object.losses = snapshot.val().losses
-    player2LoggedIn=snapshot.val().isLoggedIn
+    player2LoggedIn = snapshot.val().isLoggedIn
 
   })
 
@@ -293,17 +293,17 @@ var currentUsers=0;
   })
 
 
-//   function message() {
-//     database.ref('messages/').set({
-//   message:$("#chat").val()
-//     });
-//   }
-// $("#submitMessage").on("click",function(){
-//   message();
-//   var text= $("<div>")
-//   $("#chat").append()
+  //   function message() {
+  //     database.ref('messages/').set({
+  //   message:$("#chat").val()
+  //     });
+  //   }
+  // $("#submitMessage").on("click",function(){
+  //   message();
+  //   var text= $("<div>")
+  //   $("#chat").append()
 
-// })
+  // })
 
   /*
   Using "once" on a "join game button"- determine if there is a player 1 or player 2 currently
