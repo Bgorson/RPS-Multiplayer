@@ -191,7 +191,7 @@
     }
   })
 
-  //creates "join" button
+  //creates "join" button and block more than 2 users from joining
   $(".join").on("click", function () {
   if (currentUsers <3){
     $(".joined").css("display","block")
