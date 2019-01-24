@@ -237,6 +237,7 @@
   //When a player joins- it assigns them to player 1 or Player 2 depending on order and if someone is logged in
   $("#submit").on("click", function (event) {
     event.preventDefault();
+    playerName= $('#joinGame').val()
     $("#submit").css("display", "none")
 
     database.ref('/users/' + 1).once('value').then(function (snapshot) {
@@ -246,13 +247,14 @@
         setPlayerInfo(2, ($("#joinGame").val()), true)
         playerNumber = 2;
         $("#username").text(($("#joinGame").val()))
-        $("input").css("display", "none")
+        $("#joinGame").css("#display", "none")
+        
 
       } else {
         setPlayerInfo(1, ($("#joinGame").val()), true)
         playerNumber = 1;
         $("#username").text(($("#joinGame").val()))
-        $("input").css("display", "none")
+        $("#joinGame").css("display", "none")
       }
     });
 
@@ -292,18 +294,25 @@
     gamePlay()
   })
 
+var messages;
+    function message() {
+      database.ref('messages/').set({
+    message:$("#chat").val()
+      });
+    }
+  $("#submitMessage").on("click",function(){
+    message();
+    var text= $("<div>")
+    database.ref('/messages/').on("value", function (snapshot) {
+      messages= snapshot.val().message
+      console.log(messages)
+    })
+    text.append(JSON.stringify(messages))
+    console.log(text)
+    $(text).prepend(playerName + ": ")
+    $("#chatBox").prepend(text)
 
-  //   function message() {
-  //     database.ref('messages/').set({
-  //   message:$("#chat").val()
-  //     });
-  //   }
-  // $("#submitMessage").on("click",function(){
-  //   message();
-  //   var text= $("<div>")
-  //   $("#chat").append()
-
-  // })
+  })
 
   /*
   Using "once" on a "join game button"- determine if there is a player 1 or player 2 currently
